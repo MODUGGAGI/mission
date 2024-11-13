@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import umc.mission.domain.QStore;
 import umc.mission.domain.Store;
+import umc.mission.domain.enums.MissionStatus;
 
 import java.util.List;
 
