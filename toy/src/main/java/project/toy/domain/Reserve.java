@@ -37,4 +37,6 @@ public class Reserve {
     private ReserveStatus status;
 
     private int price;
+
+    //test
 }
