@@ -12,8 +12,8 @@ import umc.mission.web.dto.MemberRequestDto;
 import umc.mission.web.dto.MemberResponseDto;
 
 @RestController
-@Validated
 @RequiredArgsConstructor
+@Validated
 @RequestMapping("/members")
 public class MemberRestController {
 

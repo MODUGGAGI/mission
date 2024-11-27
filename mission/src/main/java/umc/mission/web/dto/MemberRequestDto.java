@@ -23,8 +23,10 @@ public class MemberRequestDto {
         Integer birthMonth;
         @NotNull
         Integer birthDay;
+
         @Size(min = 5, max = 12)
         String address;
+
         @Size(min = 5, max = 12)
         String specAddress;
 
