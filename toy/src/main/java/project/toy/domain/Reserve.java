@@ -34,6 +34,7 @@ public class Reserve {
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10)")
     private ReserveStatus status;
 
     private int price;

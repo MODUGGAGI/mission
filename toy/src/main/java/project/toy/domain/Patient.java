@@ -23,6 +23,7 @@ public class Patient {
     private int age;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10)")
     private Gender gender;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
