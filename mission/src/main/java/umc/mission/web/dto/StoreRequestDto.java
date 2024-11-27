@@ -1,13 +1,11 @@
 package umc.mission.web.dto;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 public class StoreRequestDto {
 
     @Getter
-    public static class JoinDto{
+    public static class StoreJoinDto {
         String name;
         String address;
 

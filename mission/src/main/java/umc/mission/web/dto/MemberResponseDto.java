@@ -13,7 +13,7 @@ public class MemberResponseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class JoinResultDto {
+    public static class MemberJoinResultDto {
         Long memberId;
         LocalDateTime createdAt;
     }

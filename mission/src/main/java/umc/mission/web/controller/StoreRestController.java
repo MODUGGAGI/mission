@@ -20,8 +20,8 @@ import umc.mission.web.dto.StoreResponseDto;
 public class StoreRestController {
 
     private final StoreCommandService storeCommandService;
-    @PostMapping("/") //여기서 이렇게 storeId를 경로변수로 받는게 맞나..?
-    public ApiResponse<StoreResponseDto.JoinResultDto> join(@RequestBody StoreRequestDto.JoinDto request) {
+    @PostMapping("/")
+    public ApiResponse<StoreResponseDto.StoreJoinResultDto> join(@RequestBody StoreRequestDto.StoreJoinDto request) {
         Store store = storeCommandService.joinStore(request);
         return ApiResponse.onSuccess(StoreConverter.toJoinResultDto(store));
     }

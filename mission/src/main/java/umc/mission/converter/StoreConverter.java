@@ -7,17 +7,17 @@ import umc.mission.web.dto.StoreResponseDto;
 
 public class StoreConverter {
 
-    public static StoreResponseDto.JoinResultDto toJoinResultDto(Store store) {
-        return StoreResponseDto.JoinResultDto.builder()
+    public static StoreResponseDto.StoreJoinResultDto toJoinResultDto(Store store) {
+        return StoreResponseDto.StoreJoinResultDto.builder()
                 .storeId(store.getId())
-                .region(StoreResponseDto.RegionDto.builder()
+                .region(StoreResponseDto.StoreRegionDto.builder()
                         .regionId(store.getRegion().getId())
                         .name(store.getRegion().getName())
                         .build())
                 .build();
     }
 
-    public static Store toStore(StoreRequestDto.JoinDto request, Region region) {
+    public static Store toStore(StoreRequestDto.StoreJoinDto request, Region region) {
         return Store.builder()
                 .name(request.getName())
                 .address(request.getAddress())

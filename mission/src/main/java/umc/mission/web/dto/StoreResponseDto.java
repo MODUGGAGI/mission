@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import umc.mission.domain.Region;
 
 public class StoreResponseDto {
 
@@ -12,16 +11,16 @@ public class StoreResponseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class JoinResultDto{
+    public static class StoreJoinResultDto {
         Long storeId;
-        RegionDto region;
+        StoreRegionDto region;
     }
 
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RegionDto{
+    public static class StoreRegionDto {
         Long regionId;
         String name;
     }

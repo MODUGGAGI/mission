@@ -20,7 +20,7 @@ public class StoreCommandServiceImpl implements StoreCommandService{
     private final RegionRepository regionRepository;
     @Override
     @Transactional
-    public Store joinStore(StoreRequestDto.JoinDto request) {
+    public Store joinStore(StoreRequestDto.StoreJoinDto request) {
 
         Region region = regionRepository.findById(request.getRegionId())
                 .orElseThrow(() -> new RegionHandler(ErrorStatus.REGION_NOT_FOUND));

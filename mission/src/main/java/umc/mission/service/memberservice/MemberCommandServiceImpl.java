@@ -15,7 +15,6 @@ import umc.mission.repository.MemberRepository;
 import umc.mission.web.dto.MemberRequestDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +26,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
     @Override
     @Transactional
-    public Member joinMember(MemberRequestDto.JoinDto request) {
+    public Member joinMember(MemberRequestDto.MemberJoinDto request) {
 
         Member newMember = MemberConverter.toMember(request);
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()

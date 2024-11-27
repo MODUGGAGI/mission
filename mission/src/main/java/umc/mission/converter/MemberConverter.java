@@ -10,14 +10,14 @@ import java.util.ArrayList;
 
 public class MemberConverter { //객체를 DTO로 바꾸는 역할
 
-    public static MemberResponseDto.JoinResultDto toJoinResultDto(Member member) {
-        return MemberResponseDto.JoinResultDto.builder()
+    public static MemberResponseDto.MemberJoinResultDto toJoinResultDto(Member member) {
+        return MemberResponseDto.MemberJoinResultDto.builder()
                 .memberId(member.getId())
                 .createdAt(LocalDateTime.now())
                 .build();
     }
 
-    public static Member toMember(MemberRequestDto.JoinDto request) {
+    public static Member toMember(MemberRequestDto.MemberJoinDto request) {
 
         Gender gender = null;
         switch (request.getGender()) {

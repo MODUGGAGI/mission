@@ -5,5 +5,5 @@ import umc.mission.web.dto.MemberRequestDto;
 
 public interface MemberCommandService {
 
-    Member joinMember(MemberRequestDto.JoinDto request);
+    Member joinMember(MemberRequestDto.MemberJoinDto request);
 }
