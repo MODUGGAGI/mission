@@ -25,9 +25,25 @@ public class Reserve {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
+    public void setPatient(Patient patient) {
+        if (this.patient != null) {
+            this.patient.getReserveList().remove(this);
+        }
+        this.patient = patient;
+        this.patient.getReserveList().add(this);
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
+
+    public void setDoctor(Doctor doctor) {
+        if (this.doctor != null) {
+            this.doctor.getReserveList().remove(this);
+        }
+        this.doctor = doctor;
+        this.doctor.getReserveList().add(this);
+    }
 
     @CreatedDate
     @Column(columnDefinition = "datetime(6)")
@@ -38,6 +54,4 @@ public class Reserve {
     private ReserveStatus status;
 
     private int price;
-
-    //test
 }

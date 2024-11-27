@@ -26,5 +26,13 @@ public class Doctor {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    public void setDepartment(Department department) {
+        if (this.department != null) {
+            this.department.getDoctors().remove(this);
+        }
+        this.department = department;
+        this.department.getDoctors().add(this);
+    }
+
     private int career;
 }

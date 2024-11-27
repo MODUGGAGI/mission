@@ -2,6 +2,7 @@ package umc.mission.converter;
 
 import umc.mission.domain.Region;
 import umc.mission.domain.Store;
+import umc.mission.web.dto.RegionResponseDto;
 import umc.mission.web.dto.StoreRequestDto;
 import umc.mission.web.dto.StoreResponseDto;
 
@@ -10,7 +11,7 @@ public class StoreConverter {
     public static StoreResponseDto.StoreJoinResultDto toJoinResultDto(Store store) {
         return StoreResponseDto.StoreJoinResultDto.builder()
                 .storeId(store.getId())
-                .region(StoreResponseDto.StoreRegionDto.builder()
+                .region(RegionResponseDto.RegionDto.builder()
                         .regionId(store.getRegion().getId())
                         .name(store.getRegion().getName())
                         .build())

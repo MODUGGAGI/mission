@@ -14,7 +14,6 @@ import umc.mission.web.dto.StoreRequestDto;
 import umc.mission.web.dto.StoreResponseDto;
 
 @RestController
-@Validated
 @RequiredArgsConstructor
 @RequestMapping("/stores")
 public class StoreRestController {

@@ -24,6 +24,14 @@ public class Department {
     @JoinColumn(name = "hospital_id", nullable = false)
     private Hospital hospital;
 
+    public void setHospital(Hospital hospital) {
+        if (this.hospital != null) {
+            this.hospital.getDepartments().remove(this);
+        }
+        this.hospital = hospital;
+        this.hospital.getDepartments().add(this);
+    }
+
     private int phone;
 
     @OneToMany(mappedBy = "department")

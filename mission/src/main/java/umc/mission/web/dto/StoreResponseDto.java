@@ -13,15 +13,15 @@ public class StoreResponseDto {
     @AllArgsConstructor
     public static class StoreJoinResultDto {
         Long storeId;
-        StoreRegionDto region;
+        RegionResponseDto.RegionDto region;
     }
 
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class StoreRegionDto {
-        Long regionId;
+    public static class StoreDto {
+        Long storeId;
         String name;
     }
 }
