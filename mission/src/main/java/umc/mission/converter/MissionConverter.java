@@ -2,9 +2,9 @@ package umc.mission.converter;
 
 import umc.mission.domain.Mission;
 import umc.mission.domain.Store;
-import umc.mission.web.dto.MissionRequestDto;
-import umc.mission.web.dto.MissionResponseDto;
-import umc.mission.web.dto.StoreResponseDto;
+import umc.mission.web.dto.mission.MissionRequestDto;
+import umc.mission.web.dto.mission.MissionResponseDto;
+import umc.mission.web.dto.store.StoreResponseDto;
 
 public class MissionConverter {
 

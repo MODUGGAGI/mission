@@ -1,4 +1,4 @@
-package umc.mission.web.dto;
+package umc.mission.web.dto.store;
 
 import lombok.Getter;
 

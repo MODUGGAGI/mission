@@ -1,9 +1,10 @@
-package umc.mission.web.dto;
+package umc.mission.web.dto.store;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import umc.mission.web.dto.region.RegionResponseDto;
 
 public class StoreResponseDto {
 

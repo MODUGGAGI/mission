@@ -11,8 +11,8 @@ import umc.mission.apiPayload.ApiResponse;
 import umc.mission.converter.ReviewConverter;
 import umc.mission.domain.Review;
 import umc.mission.service.reviewservice.ReviewCommandService;
-import umc.mission.web.dto.ReviewRequestDto;
-import umc.mission.web.dto.ReviewResponseDto;
+import umc.mission.web.dto.review.ReviewRequestDto;
+import umc.mission.web.dto.review.ReviewResponseDto;
 
 @RestController
 @RequiredArgsConstructor

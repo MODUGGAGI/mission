@@ -12,7 +12,7 @@ import umc.mission.domain.Member;
 import umc.mission.domain.mapping.MemberPrefer;
 import umc.mission.repository.FoodCategoryRepository;
 import umc.mission.repository.MemberRepository;
-import umc.mission.web.dto.MemberRequestDto;
+import umc.mission.web.dto.member.MemberRequestDto;
 
 import java.util.List;
 

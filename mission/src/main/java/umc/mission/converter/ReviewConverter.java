@@ -1,10 +1,12 @@
 package umc.mission.converter;
 
 import umc.mission.domain.Member;
-import umc.mission.domain.Region;
 import umc.mission.domain.Review;
 import umc.mission.domain.Store;
-import umc.mission.web.dto.*;
+import umc.mission.web.dto.member.MemberResponseDto;
+import umc.mission.web.dto.review.ReviewRequestDto;
+import umc.mission.web.dto.review.ReviewResponseDto;
+import umc.mission.web.dto.store.StoreResponseDto;
 
 public class ReviewConverter {
 

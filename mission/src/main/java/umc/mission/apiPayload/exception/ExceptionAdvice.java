@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import umc.mission.apiPayload.ApiResponse;
 import umc.mission.apiPayload.code.ErrorReasonDTO;
 import umc.mission.apiPayload.code.status.ErrorStatus;
+import umc.mission.apiPayload.exception.handler.MemberMissionHandler;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
         return handleExceptionInternalConstraint(e, ErrorStatus.valueOf(errorMessage), HttpHeaders.EMPTY,request);
     }
 
-    @Override
+    @Override //내가 만든 커스텀 애노테이션에서 isValid 메소드에서 검증이 실패하면 MethodArgumentNotValidException이 발생
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         Map<String, String> errors = new LinkedHashMap<>();
@@ -47,6 +48,16 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                     String errorMessage = Optional.ofNullable(fieldError.getDefaultMessage()).orElse("");
                     errors.merge(fieldName, errorMessage, (existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
                 });
+
+        e.getBindingResult().getGlobalErrors().stream()
+                .forEach(globalError -> {
+                    String objectName = globalError.getObjectName();
+                    String errorMessage = Optional.ofNullable(globalError.getDefaultMessage()).orElse("");
+                    errors.merge(objectName, errorMessage, (existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
+                });
+        //이미 멤버가 미션에 도전중인 경우를 검증하는 커스텀 애노테이션이 클래스 레벨에 있기 때문에 isValid에서 false가 리턴될 시
+        //이는 FieldError가 아닌 ObjectError(GlobalError)에 담기게 된다.
+        //따라서 .getGlobalErrors()를 이용해 globalError가 있는경우 해당 에러도 가져오게 코드 추가
 
         return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf("_BAD_REQUEST"),request,errors);
     }

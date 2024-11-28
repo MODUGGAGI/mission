@@ -5,19 +5,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.mission.apiPayload.code.status.ErrorStatus;
 import umc.mission.apiPayload.exception.handler.MemberHandler;
-import umc.mission.apiPayload.exception.handler.RegionHandler;
 import umc.mission.apiPayload.exception.handler.StoreHandler;
 import umc.mission.converter.ReviewConverter;
-import umc.mission.converter.StoreConverter;
 import umc.mission.domain.Member;
-import umc.mission.domain.Region;
 import umc.mission.domain.Review;
 import umc.mission.domain.Store;
 import umc.mission.repository.MemberRepository;
 import umc.mission.repository.ReviewRepository;
 import umc.mission.repository.storerepository.StoreRepository;
-import umc.mission.web.dto.ReviewRequestDto;
-import umc.mission.web.dto.StoreRequestDto;
+import umc.mission.web.dto.review.ReviewRequestDto;
 
 @Service
 @RequiredArgsConstructor

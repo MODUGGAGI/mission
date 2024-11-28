@@ -1,4 +1,4 @@
-package umc.mission.web.dto;
+package umc.mission.web.dto.region;
 
 public class RegionRequestDto {
 

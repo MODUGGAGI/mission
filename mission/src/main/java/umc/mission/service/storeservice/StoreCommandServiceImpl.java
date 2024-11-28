@@ -10,7 +10,7 @@ import umc.mission.domain.Region;
 import umc.mission.domain.Store;
 import umc.mission.repository.RegionRepository;
 import umc.mission.repository.storerepository.StoreRepository;
-import umc.mission.web.dto.StoreRequestDto;
+import umc.mission.web.dto.store.StoreRequestDto;
 
 @Service
 @RequiredArgsConstructor

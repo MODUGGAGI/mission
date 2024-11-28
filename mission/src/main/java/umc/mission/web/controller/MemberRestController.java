@@ -8,8 +8,8 @@ import umc.mission.apiPayload.ApiResponse;
 import umc.mission.converter.MemberConverter;
 import umc.mission.domain.Member;
 import umc.mission.service.memberservice.MemberCommandService;
-import umc.mission.web.dto.MemberRequestDto;
-import umc.mission.web.dto.MemberResponseDto;
+import umc.mission.web.dto.member.MemberRequestDto;
+import umc.mission.web.dto.member.MemberResponseDto;
 
 @RestController
 @RequiredArgsConstructor

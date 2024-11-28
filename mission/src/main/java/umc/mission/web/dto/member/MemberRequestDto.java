@@ -1,4 +1,4 @@
-package umc.mission.web.dto;
+package umc.mission.web.dto.member;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
