@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import umc.mission.apiPayload.ApiResponse;
 import umc.mission.apiPayload.code.ErrorReasonDTO;
 import umc.mission.apiPayload.code.status.ErrorStatus;
+import umc.mission.apiPayload.exception.handler.MemberHandler;
 import umc.mission.apiPayload.exception.handler.MemberMissionHandler;
 
 import java.util.LinkedHashMap;
@@ -58,6 +59,11 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
         //이미 멤버가 미션에 도전중인 경우를 검증하는 커스텀 애노테이션이 클래스 레벨에 있기 때문에 isValid에서 false가 리턴될 시
         //이는 FieldError가 아닌 ObjectError(GlobalError)에 담기게 된다.
         //따라서 .getGlobalErrors()를 이용해 globalError가 있는경우 해당 에러도 가져오게 코드 추가
+
+        String string = errors.get("memberMissionJoinDto");
+        if (!string.isEmpty()) {
+            return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf(string),request,errors);
+        }
 
         return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf("_BAD_REQUEST"),request,errors);
     }
