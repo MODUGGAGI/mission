@@ -26,6 +26,11 @@ public class MemberMission extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'CHALLENGING'")
     private MissionStatus status;
 
+    public MemberMission changeStatusToComplete() {
+        this.status = MissionStatus.COMPLETE;
+        return this;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

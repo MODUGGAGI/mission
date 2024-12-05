@@ -28,8 +28,8 @@ public class MemberMissionResponseDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MemberMissionListDTO {
-        List<MemberMissionResponseDto.MemberMissionDTO> memberMissionList;
+    public static class MemberMissionPreviewListDTO {
+        List<MemberMissionPreviewDTO> memberMissionList;
         Integer listSize;
         Integer totalPage;
         Long totalElements;
@@ -41,11 +41,23 @@ public class MemberMissionResponseDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MemberMissionDTO {
+    public static class MemberMissionPreviewDTO {
         String storeName;
         MissionStatus status;
         Integer reward;
         LocalDate deadline;
+        String missionSpec;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberMissionCompleteStatusDTO {
+        String storeName;
+        String userName;
+        MissionStatus status;
+        Integer reward;
         String missionSpec;
     }
 }

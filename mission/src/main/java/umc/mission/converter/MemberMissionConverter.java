@@ -7,7 +7,6 @@ import umc.mission.domain.mapping.MemberMission;
 import umc.mission.web.dto.member.MemberResponseDto;
 import umc.mission.web.dto.membermission.MemberMissionResponseDto;
 import umc.mission.web.dto.mission.MissionResponseDto;
-import umc.mission.web.dto.store.StoreResponseDto;
 
 import java.util.List;
 
@@ -35,9 +34,9 @@ public class MemberMissionConverter {
     }
 
 
-    public static MemberMissionResponseDto.MemberMissionDTO toMemberMissionDTO(MemberMission memberMission) {
+    public static MemberMissionResponseDto.MemberMissionPreviewDTO toMemberMissionPreviewDTO(MemberMission memberMission) {
 
-        return MemberMissionResponseDto.MemberMissionDTO.builder()
+        return MemberMissionResponseDto.MemberMissionPreviewDTO.builder()
                 .storeName(memberMission.getMission().getStore().getName())
                 .status(memberMission.getStatus())
                 .reward(memberMission.getMission().getReward())
@@ -46,18 +45,28 @@ public class MemberMissionConverter {
                 .build();
     }
 
-    public static MemberMissionResponseDto.MemberMissionListDTO toMemberMissionListDTO(Page<MemberMission> memberMissionList) {
+    public static MemberMissionResponseDto.MemberMissionPreviewListDTO toMemberMissionPreviewListDTO(Page<MemberMission> memberMissionList) {
 
-        List<MemberMissionResponseDto.MemberMissionDTO> memberMissionDTOList
-                = memberMissionList.stream().map(MemberMissionConverter::toMemberMissionDTO).toList();
+        List<MemberMissionResponseDto.MemberMissionPreviewDTO> memberMissionPreviewDTOList
+                = memberMissionList.stream().map(MemberMissionConverter::toMemberMissionPreviewDTO).toList();
 
-        return MemberMissionResponseDto.MemberMissionListDTO.builder()
+        return MemberMissionResponseDto.MemberMissionPreviewListDTO.builder()
                 .isFirst(memberMissionList.isFirst())
                 .isLast(memberMissionList.isLast())
                 .totalPage(memberMissionList.getTotalPages())
                 .totalElements(memberMissionList.getTotalElements())
-                .listSize(memberMissionDTOList.size())
-                .memberMissionList(memberMissionDTOList)
+                .listSize(memberMissionPreviewDTOList.size())
+                .memberMissionList(memberMissionPreviewDTOList)
+                .build();
+    }
+
+    public static MemberMissionResponseDto.MemberMissionCompleteStatusDTO toMemberMissionCompleteStatusDTO(MemberMission memberMission) {
+        return MemberMissionResponseDto.MemberMissionCompleteStatusDTO.builder()
+                .userName(memberMission.getMember().getName())
+                .storeName(memberMission.getMission().getStore().getName())
+                .status(memberMission.getStatus())
+                .reward(memberMission.getMission().getReward())
+                .missionSpec(memberMission.getMission().getMissionSpec())
                 .build();
     }
 }

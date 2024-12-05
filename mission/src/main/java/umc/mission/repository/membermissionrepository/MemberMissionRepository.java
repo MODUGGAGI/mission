@@ -8,8 +8,12 @@ import umc.mission.domain.Mission;
 import umc.mission.domain.enums.MissionStatus;
 import umc.mission.domain.mapping.MemberMission;
 
+import java.util.Optional;
+
 public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {
     boolean existsByMemberIdAndMissionIdAndStatus(Long memberId, Long missionId, MissionStatus status);
 
     Page<MemberMission> findAllByMemberAndStatus(Member member, PageRequest pageRequest, MissionStatus status);
+
+    Optional<MemberMission> findByMemberAndMission(Member member, Mission mission);
 }
