@@ -20,4 +20,6 @@ public class MemberMissionResponseDto {
         MissionResponseDto.MissionDto mission;
         MissionStatus status;
     }
+
+
 }

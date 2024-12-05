@@ -24,6 +24,4 @@ public class WebConfig implements WebMvcConfigurer {
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         WebMvcConfigurer.super.extendHandlerExceptionResolvers(resolvers);
     }
-
-    extendsHandler
 }

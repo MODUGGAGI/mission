@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import umc.mission.apiPayload.code.status.ErrorStatus;
+import umc.mission.apiPayload.exception.handler.MemberHandler;
 import umc.mission.domain.Member;
 import umc.mission.domain.Review;
 import umc.mission.domain.Store;
@@ -20,7 +22,8 @@ public class MemberQueryServiceImpl implements MemberQueryService{
     private final ReviewRepository reviewRepository;
     @Override
     public Page<Review> getMyReviews(Long memberId, Integer page) {
-        Member member = memberRepository.findById(memberId).get();
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
 
         Page<Review> memberPage = reviewRepository.findAllByMember(member, PageRequest.of(page, 10));
         return memberPage;

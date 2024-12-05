@@ -6,7 +6,6 @@ import umc.mission.domain.Review;
 import umc.mission.domain.enums.Gender;
 import umc.mission.web.dto.member.MemberRequestDto;
 import umc.mission.web.dto.member.MemberResponseDto;
-import umc.mission.web.dto.store.StoreResponseDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,9 +48,9 @@ public class MemberConverter { //객체를 DTO로 바꾸는 역할
                 .build();
     }
 
-    public static MemberResponseDto.MyReviewListDTO ToMyReviewListDTO(Page<Review> reviewList) {
+    public static MemberResponseDto.MyReviewListDTO toMyReviewListDTO(Page<Review> reviewList) {
 
-        List<MemberResponseDto.MyReviewDTO> ReviewPreViewList
+        List<MemberResponseDto.MyReviewDTO> ReviewDTOList
                 = reviewList.stream().map(MemberConverter::toMyReviewDTO).toList();
 
         return MemberResponseDto.MyReviewListDTO.builder()
@@ -59,8 +58,8 @@ public class MemberConverter { //객체를 DTO로 바꾸는 역할
                 .isFirst(reviewList.isFirst())
                 .totalPage(reviewList.getTotalPages())
                 .totalElements(reviewList.getTotalElements())
-                .listSize(ReviewPreViewList.size())
-                .reviewList(ReviewPreViewList)
+                .listSize(ReviewDTOList.size())
+                .reviewList(ReviewDTOList)
                 .build();
     }
 }

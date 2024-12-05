@@ -14,16 +14,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc.mission.apiPayload.ApiResponse;
 import umc.mission.converter.MemberConverter;
-import umc.mission.converter.StoreConverter;
 import umc.mission.domain.Member;
 import umc.mission.domain.Review;
 import umc.mission.service.memberservice.MemberCommandService;
 import umc.mission.service.memberservice.MemberQueryService;
 import umc.mission.validation.annotation.CheckPage;
-import umc.mission.validation.annotation.ExistStore;
 import umc.mission.web.dto.member.MemberRequestDto;
 import umc.mission.web.dto.member.MemberResponseDto;
-import umc.mission.web.dto.store.StoreResponseDto;
 
 @RestController
 @RequiredArgsConstructor
@@ -56,6 +53,6 @@ public class MemberRestController {
     public ApiResponse<MemberResponseDto.MyReviewListDTO> getReviewList(@PathVariable Long memberId, @CheckPage Integer page) {
         log.info("page={}", page);
         Page<Review> reviewList = memberQueryService.getMyReviews(memberId, page);
-        return ApiResponse.onSuccess(MemberConverter.ToMyReviewListDTO(reviewList));
+        return ApiResponse.onSuccess(MemberConverter.toMyReviewListDTO(reviewList));
     }
 }

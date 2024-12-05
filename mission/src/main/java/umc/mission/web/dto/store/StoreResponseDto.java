@@ -1,5 +1,6 @@
 package umc.mission.web.dto.store;
 
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,5 +52,29 @@ public class StoreResponseDto {
         Float score;
         String body;
         LocalDate createdAt;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionListDTO {
+        List<MissionDTO> missionList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionDTO {
+        String storeName;
+        Integer reward;
+        LocalDate deadline;
+        String missionSpec;
     }
 }
