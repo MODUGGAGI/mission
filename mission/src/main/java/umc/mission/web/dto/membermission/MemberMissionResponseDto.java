@@ -8,6 +8,9 @@ import umc.mission.domain.enums.MissionStatus;
 import umc.mission.web.dto.member.MemberResponseDto;
 import umc.mission.web.dto.mission.MissionResponseDto;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class MemberMissionResponseDto {
 
     @Getter
@@ -21,5 +24,28 @@ public class MemberMissionResponseDto {
         MissionStatus status;
     }
 
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberMissionListDTO {
+        List<MemberMissionResponseDto.MemberMissionDTO> memberMissionList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
 
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberMissionDTO {
+        String storeName;
+        MissionStatus status;
+        Integer reward;
+        LocalDate deadline;
+        String missionSpec;
+    }
 }
