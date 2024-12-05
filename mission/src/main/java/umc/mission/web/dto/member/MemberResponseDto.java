@@ -30,4 +30,28 @@ public class MemberResponseDto {
         String name;
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyReviewListDTO {
+        List<MemberResponseDto.MyReviewDTO> reviewList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyReviewDTO {
+        String ownerNickname;
+        String storeName;
+        Float score;
+        String body;
+        LocalDate createdAt;
+    }
 }

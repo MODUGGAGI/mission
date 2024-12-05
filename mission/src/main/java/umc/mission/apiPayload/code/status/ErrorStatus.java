@@ -39,7 +39,10 @@ public enum ErrorStatus implements BaseErrorCode {
     MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION4001", "미션 없습니다."),
 
     //이미 도전중인 미션 존재
-    MISSION_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "MEMBERMISSION4001", "이미 도전중인 미션이 있습니다.");
+    MISSION_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "MEMBERMISSION4001", "이미 도전중인 미션이 있습니다."),
+
+    //Page의 범위가 맞지 않음
+    PAGE_OUT_OF_RANGE(HttpStatus.BAD_REQUEST, "PAGE4001","페이지 범위에 맞지 않는 페이지 값이 들어왔습니다.");
 
 
     private final HttpStatus httpStatus;

@@ -33,4 +33,6 @@ public class MemberRequestDto {
         @ExistCategories
         List<Long> preferCategory;
     }
+
+
 }
