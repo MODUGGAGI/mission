@@ -18,6 +18,8 @@ public class QPatient extends EntityPathBase<Patient> {
 
     private static final long serialVersionUID = 1905354560L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QPatient patient = new QPatient("patient");
 
     public final NumberPath<Integer> age = createNumber("age", Integer.class);
@@ -28,18 +30,29 @@ public class QPatient extends EntityPathBase<Patient> {
 
     public final StringPath name = createString("name");
 
+    public final project.toy.domain.embeddable.QPhoneNum phoneNum;
+
     public final ListPath<Reserve, QReserve> reserveList = this.<Reserve, QReserve>createList("reserveList", Reserve.class, QReserve.class, PathInits.DIRECT2);
 
     public QPatient(String variable) {
-        super(Patient.class, forVariable(variable));
+        this(Patient.class, forVariable(variable), INITS);
     }
 
     public QPatient(Path<? extends Patient> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QPatient(PathMetadata metadata) {
-        super(Patient.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QPatient(PathMetadata metadata, PathInits inits) {
+        this(Patient.class, metadata, inits);
+    }
+
+    public QPatient(Class<? extends Patient> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.phoneNum = inits.isInitialized("phoneNum") ? new project.toy.domain.embeddable.QPhoneNum(forProperty("phoneNum")) : null;
     }
 
 }

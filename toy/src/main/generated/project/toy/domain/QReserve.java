@@ -53,7 +53,7 @@ public class QReserve extends EntityPathBase<Reserve> {
     public QReserve(Class<? extends Reserve> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.doctor = inits.isInitialized("doctor") ? new QDoctor(forProperty("doctor"), inits.get("doctor")) : null;
-        this.patient = inits.isInitialized("patient") ? new QPatient(forProperty("patient")) : null;
+        this.patient = inits.isInitialized("patient") ? new QPatient(forProperty("patient"), inits.get("patient")) : null;
     }
 
 }

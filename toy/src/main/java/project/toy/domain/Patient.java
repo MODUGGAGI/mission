@@ -2,6 +2,7 @@ package project.toy.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import project.toy.domain.embeddable.PhoneNum;
 import project.toy.domain.enums.Gender;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Patient {
     @Column(nullable = false, length = 20)
     private String name;
     private int age;
+    private PhoneNum phoneNum;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")

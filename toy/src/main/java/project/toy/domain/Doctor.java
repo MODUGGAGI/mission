@@ -2,6 +2,7 @@ package project.toy.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import project.toy.domain.embeddable.PhoneNum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class Doctor {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
+
+    private PhoneNum phoneNum;
 
     public void setDepartment(Department department) {
         if (this.department != null) {
