@@ -8,7 +8,6 @@ public class MissionRequestDto {
 
     @Getter
     public static class MissionJoinDto {
-        Long storeId;
         Integer reward;
         LocalDate deadline;
         String missionSpec;

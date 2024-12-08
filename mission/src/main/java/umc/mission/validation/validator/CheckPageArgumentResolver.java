@@ -6,6 +6,8 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import umc.mission.apiPayload.code.status.ErrorStatus;
+import umc.mission.apiPayload.exception.handler.PageHandler;
 import umc.mission.validation.annotation.CheckPage;
 
 import java.lang.reflect.Parameter;
@@ -26,7 +28,7 @@ public class CheckPageArgumentResolver implements HandlerMethodArgumentResolver 
         Integer page = Integer.valueOf(paramPage);
 
         if (page <= 0) {
-            throw new IllegalArgumentException("page가 0보다 작습니다.");
+            throw new PageHandler(ErrorStatus.PAGE_OUT_OF_RANGE);
         }
 
         return page - 1;

@@ -18,11 +18,13 @@ import umc.mission.converter.MemberMissionConverter;
 import umc.mission.domain.Member;
 import umc.mission.domain.Review;
 import umc.mission.domain.mapping.MemberMission;
+import umc.mission.service.membermissionservice.MemberMissionCommandService;
 import umc.mission.service.memberservice.MemberCommandService;
 import umc.mission.service.memberservice.MemberQueryService;
 import umc.mission.validation.annotation.CheckPage;
 import umc.mission.web.dto.member.MemberRequestDto;
 import umc.mission.web.dto.member.MemberResponseDto;
+import umc.mission.web.dto.membermission.MemberMissionRequestDto;
 import umc.mission.web.dto.membermission.MemberMissionResponseDto;
 
 @RestController
@@ -34,6 +36,7 @@ public class MemberRestController {
 
     private final MemberCommandService memberCommandService;
     private final MemberQueryService memberQueryService;
+    private final MemberMissionCommandService memberMissionCommandService;
 
     @PostMapping("/")
     public ApiResponse<MemberResponseDto.MemberJoinResultDto> join(@RequestBody @Valid MemberRequestDto.MemberJoinDto request) {

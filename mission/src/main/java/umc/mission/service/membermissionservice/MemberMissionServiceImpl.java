@@ -13,6 +13,6 @@ public class MemberMissionServiceImpl implements MemberMissionService{
 
     @Override
     public boolean alreadyChallenging(Long memberId, Long missionId) {
-        return memberMissionRepository.existsByMemberIdAndMissionIdAndStatus(memberId, missionId, MissionStatus.CHALLENGING);
+        return memberMissionRepository.existsByMemberIdAndMissionId(memberId, missionId);
     }
 }

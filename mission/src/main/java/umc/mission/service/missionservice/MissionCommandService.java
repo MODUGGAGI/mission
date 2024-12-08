@@ -4,5 +4,5 @@ import umc.mission.domain.Mission;
 import umc.mission.web.dto.mission.MissionRequestDto;
 
 public interface MissionCommandService {
-    Mission joinMission(MissionRequestDto.MissionJoinDto request);
+    Mission joinMission(MissionRequestDto.MissionJoinDto request, Long storeId);
 }

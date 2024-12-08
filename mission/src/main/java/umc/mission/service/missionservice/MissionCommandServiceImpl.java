@@ -21,8 +21,8 @@ public class MissionCommandServiceImpl implements MissionCommandService{
 
     @Override
     @Transactional
-    public Mission joinMission(MissionRequestDto.MissionJoinDto request) {
-        Store store = storeRepository.findById(request.getStoreId())
+    public Mission joinMission(MissionRequestDto.MissionJoinDto request, Long storeId) {
+        Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new StoreHandler(ErrorStatus.STORE_NOT_FOUND));
 
         Mission mission = MissionConverter.toMission(request, store);

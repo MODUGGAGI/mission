@@ -8,9 +8,6 @@ public class ReviewRequestDto {
     @Getter
     public static class ReviewJoinDto {
         Long memberId;
-
-        @ExistStore
-        Long storeId;
         String body;
         Float score;
     }
