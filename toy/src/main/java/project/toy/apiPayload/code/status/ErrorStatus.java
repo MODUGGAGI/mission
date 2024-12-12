@@ -33,7 +33,11 @@ public enum ErrorStatus implements BaseErrorCode {
     HOSPITAL_NOT_FOUND(HttpStatus.NOT_FOUND, "HOSPITAL4001", "병원을 찾을 수 없습니다."),
     //department 관련오류
     DEPARTMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "DEPARTMENT4001", "진료과를 찾을 수 없습니다."),
-    DEPARTMENT_NOT_EXISTS(HttpStatus.NOT_FOUND, "DEPARTMENT4002","해당 병원에는 해당 진료과가 존재하지 않습니다.");
+    DEPARTMENT_NOT_EXISTS(HttpStatus.NOT_FOUND, "DEPARTMENT4002","해당 병원에는 해당 진료과가 존재하지 않습니다."),
+    //reserve 관련오류
+    RESERVE_STATUS_NOTFOUND(HttpStatus.NOT_FOUND,"RESERVE4001","예약 상태는 1(WALK_IN),2(RESERVE) 중 선택해야 합니다."),
+    RESERVE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST,"RESERVE4002","해당 시간에 이미 예약이 존재합니다."),
+    RESERVE_STATUS_CHANGE_DENIED(HttpStatus.BAD_REQUEST,"RESERVE4003","예약 상태에서만 의사 변경이 가능합니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

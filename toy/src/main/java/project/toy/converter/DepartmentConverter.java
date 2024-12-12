@@ -1,9 +1,12 @@
 package project.toy.converter;
 
+import org.springframework.data.domain.Page;
 import project.toy.domain.Department;
 import project.toy.domain.embeddable.PhoneNum;
 import project.toy.web.dto.department.DepartmentRequestDto;
 import project.toy.web.dto.department.DepartmentResponseDto;
+
+import java.util.List;
 
 public class DepartmentConverter {
 
@@ -19,6 +22,27 @@ public class DepartmentConverter {
                 .id(department.getId())
                 .hospitalName(department.getHospital().getName())
                 .departmentName(department.getName())
+                .build();
+    }
+
+    public static DepartmentResponseDto.DepartmentListDTO toDepartmentListDTO(Page<Department> departmentList) {
+        List<DepartmentResponseDto.DepartmentDTO> list
+                = departmentList.stream().map(DepartmentConverter::toDepartmentDTO).toList();
+
+        return DepartmentResponseDto.DepartmentListDTO.builder()
+                .departmentDTOList(list)
+                .listSize(list.size())
+                .isFirst(departmentList.isFirst())
+                .isLast(departmentList.isLast())
+                .totalElement(departmentList.getTotalElements())
+                .totalPage(departmentList.getTotalPages())
+                .build();
+    }
+
+    public static DepartmentResponseDto.DepartmentDTO toDepartmentDTO(Department department) {
+        return DepartmentResponseDto.DepartmentDTO.builder()
+                .departmentName(department.getName())
+                .phoneNum(department.getPhoneNum().getPhoneNum())
                 .build();
     }
 }

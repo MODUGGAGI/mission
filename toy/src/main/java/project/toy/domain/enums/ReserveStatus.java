@@ -1,5 +1,5 @@
 package project.toy.domain.enums;
 
 public enum ReserveStatus {
-    RESERVE, TREATMENT
+    WALK_IN, RESERVE, TREATMENT
 }
