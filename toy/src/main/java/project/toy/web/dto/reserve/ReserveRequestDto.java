@@ -2,6 +2,7 @@ package project.toy.web.dto.reserve;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import project.toy.domain.enums.ReserveStatus;
@@ -22,5 +23,13 @@ public class ReserveRequestDto {
 
         @NotNull
         Integer status;
+    }
+
+    @Getter
+    public static class TreatmentDTO {
+
+        @NotNull
+        @Min(0)
+        private Integer price;
     }
 }

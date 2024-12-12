@@ -11,9 +11,10 @@ import project.toy.converter.ReserveConverter;
 import project.toy.domain.Doctor;
 import project.toy.domain.Patient;
 import project.toy.domain.Reserve;
+import project.toy.domain.enums.ReserveStatus;
 import project.toy.repository.DoctorRepository;
 import project.toy.repository.PatientRepository;
-import project.toy.repository.ReserveRepository;
+import project.toy.repository.reserve.ReserveRepository;
 import project.toy.web.dto.reserve.ReserveRequestDto;
 
 @Service
@@ -42,5 +43,18 @@ public class ReserveCommandServiceImpl implements ReserveCommandService{
         //이 컨버터 내부 메소드에서 빌더 패턴으로 생성자 호출할 때 생성자 내부에서 patient와 doctor에 대해 양방향 연관관계 설정완료
 
         return reserveRepository.save(reserve);
+    }
+
+    @Override
+    @Transactional
+    public Reserve completeTreatment(Long reserveId, Integer price) {
+        Reserve reserve = reserveRepository.findById(reserveId)
+                .orElseThrow(() -> new ReserveHandler(ErrorStatus.RESERVE_NOT_FOUND));
+
+        if (reserve.getStatus() == ReserveStatus.TREATMENT) {
+            throw new ReserveHandler(ErrorStatus.RESERVE_ALREADY_TREATMENT);
+        }
+
+        return reserve.changeStatusToTREATMENT(price);
     }
 }

@@ -60,8 +60,11 @@ public class Reserve {
         }
     }
 
-    public void chargePrice(Integer price) {
+    public Reserve changeStatusToTREATMENT(Integer price) {
+        this.status = ReserveStatus.TREATMENT;
         this.price = price;
+
+        return this;
     }
 
     public void changeDoctor(Doctor doctor) {

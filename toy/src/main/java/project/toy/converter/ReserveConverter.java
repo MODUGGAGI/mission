@@ -1,5 +1,6 @@
 package project.toy.converter;
 
+import org.springframework.data.domain.Page;
 import project.toy.apiPayload.code.status.ErrorStatus;
 import project.toy.apiPayload.exception.handler.ReserveHandler;
 import project.toy.domain.Doctor;
@@ -8,6 +9,8 @@ import project.toy.domain.Reserve;
 import project.toy.domain.enums.ReserveStatus;
 import project.toy.web.dto.reserve.ReserveRequestDto;
 import project.toy.web.dto.reserve.ReserveResponseDto;
+
+import java.util.List;
 
 public class ReserveConverter {
 
@@ -37,6 +40,41 @@ public class ReserveConverter {
                 .patientName(reserve.getPatient().getName())
                 .treatmentTime(reserve.getTreatmentTime())
                 .status(reserve.getStatus())
+                .build();
+    }
+
+    public static ReserveResponseDto.TreatmentResultDTO toTreatmentResultDTO(Reserve reserve) {
+        return ReserveResponseDto.TreatmentResultDTO.builder()
+                .reserveId(reserve.getId())
+                .patientName(reserve.getPatient().getName())
+                .doctorName(reserve.getDoctor().getName())
+                .status(reserve.getStatus())
+                .price(reserve.getPrice())
+                .build();
+    }
+
+    public static ReserveResponseDto.ReserveListDTO toReserveListDTO(Page<Reserve> reservePage) {
+        List<ReserveResponseDto.ReserveDTO> reserveDTOList
+                = reservePage.getContent().stream().map(ReserveConverter::toReserveDTO).toList();
+
+        return ReserveResponseDto.ReserveListDTO.builder()
+                .reserveList(reserveDTOList)
+                .listSize(reserveDTOList.size())
+                .isFirst(reservePage.isFirst())
+                .isLast(reservePage.isLast())
+                .totalPage(reservePage.getTotalPages())
+                .totalElements(reservePage.getTotalElements())
+                .build();
+    }
+
+    private static ReserveResponseDto.ReserveDTO toReserveDTO(Reserve reserve) {
+        return ReserveResponseDto.ReserveDTO.builder()
+                .patientName(reserve.getPatient().getName())
+                .doctorName(reserve.getDoctor().getName())
+                .departmentName(reserve.getDoctor().getDepartment().getName())
+                .treatmentTime(reserve.getTreatmentTime())
+                .status(reserve.getStatus())
+                .price(reserve.getPrice())
                 .build();
     }
 }
