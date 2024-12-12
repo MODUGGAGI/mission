@@ -3,6 +3,7 @@ package project.toy.domain;
 import jakarta.persistence.*;
 import jdk.jfr.Unsigned;
 import lombok.*;
+import project.toy.domain.embeddable.PhoneNum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class Department {
         this.hospital.getDepartments().add(this);
     }
 
-    private int phone;
+    private PhoneNum phoneNum;
 
     @OneToMany(mappedBy = "department")
     private List<Doctor> doctors = new ArrayList<>();

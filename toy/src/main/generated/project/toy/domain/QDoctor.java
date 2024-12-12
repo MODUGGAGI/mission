@@ -34,6 +34,8 @@ public class QDoctor extends EntityPathBase<Doctor> {
 
     public final ListPath<Reserve, QReserve> reserveList = this.<Reserve, QReserve>createList("reserveList", Reserve.class, QReserve.class, PathInits.DIRECT2);
 
+    public final DatePath<java.time.LocalDate> startDate = createDate("startDate", java.time.LocalDate.class);
+
     public QDoctor(String variable) {
         this(Doctor.class, forVariable(variable), INITS);
     }

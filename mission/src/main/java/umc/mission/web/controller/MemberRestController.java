@@ -36,7 +36,6 @@ public class MemberRestController {
 
     private final MemberCommandService memberCommandService;
     private final MemberQueryService memberQueryService;
-    private final MemberMissionCommandService memberMissionCommandService;
 
     @PostMapping("/")
     public ApiResponse<MemberResponseDto.MemberJoinResultDto> join(@RequestBody @Valid MemberRequestDto.MemberJoinDto request) {

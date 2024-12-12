@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,6 @@ import project.toy.apiPayload.ApiResponse;
 
 @RestController
 @RequiredArgsConstructor
-@Validated
 @RequestMapping("/patients")
 public class PatientRestController {
 
@@ -33,6 +31,6 @@ public class PatientRestController {
 
         Patient patient = patientCommandService.joinPatient(request);
 
-        return ApiResponse.onSuccess(PatientConverter.toJoinResultDto(patient));
+        return ApiResponse.onSuccess(PatientConverter.toPatientJoinResultDto(patient));
     }
 }

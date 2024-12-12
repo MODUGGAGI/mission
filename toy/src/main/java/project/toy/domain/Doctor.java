@@ -2,8 +2,14 @@ package project.toy.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import project.toy.domain.embeddable.PhoneNum;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +18,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+@DynamicUpdate
+@DynamicInsert
 public class Doctor {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,5 +46,24 @@ public class Doctor {
         this.department.getDoctors().add(this);
     }
 
+    @CreatedDate
+    @Column(columnDefinition = "date")
+    private LocalDate startDate;
+
+    @Column(columnDefinition = "int default 0")
     private int career;
+
+    public int updateCareerYear() {
+        int calculatedCareer = LocalDate.now().getYear() - this.startDate.getYear() + this.career;
+
+        if (LocalDate.now().isBefore(this.startDate.withYear(LocalDate.now().getYear()))) {
+            //if문 조건의 withYear를 통해 년도를 now()에 해당하는 날짜로 맞춘다.
+            calculatedCareer--;
+        }
+
+        if (calculatedCareer > this.career) {
+            this.career = calculatedCareer;
+        }
+        return this.career;
+    }
 }

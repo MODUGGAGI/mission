@@ -30,7 +30,7 @@ public class QDepartment extends EntityPathBase<Department> {
 
     public final StringPath name = createString("name");
 
-    public final NumberPath<Integer> phone = createNumber("phone", Integer.class);
+    public final project.toy.domain.embeddable.QPhoneNum phoneNum;
 
     public QDepartment(String variable) {
         this(Department.class, forVariable(variable), INITS);
@@ -50,7 +50,8 @@ public class QDepartment extends EntityPathBase<Department> {
 
     public QDepartment(Class<? extends Department> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.hospital = inits.isInitialized("hospital") ? new QHospital(forProperty("hospital")) : null;
+        this.hospital = inits.isInitialized("hospital") ? new QHospital(forProperty("hospital"), inits.get("hospital")) : null;
+        this.phoneNum = inits.isInitialized("phoneNum") ? new project.toy.domain.embeddable.QPhoneNum(forProperty("phoneNum")) : null;
     }
 
 }

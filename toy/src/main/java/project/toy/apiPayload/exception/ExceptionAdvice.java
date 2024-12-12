@@ -57,6 +57,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                 });
 
         String errorKey = errors.values().stream()
+                .filter(Objects::nonNull)
                 .findFirst()
                 .orElse("_BAD_REQUEST")
                 .toString();
