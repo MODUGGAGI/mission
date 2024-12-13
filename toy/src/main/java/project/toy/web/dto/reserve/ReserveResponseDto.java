@@ -37,7 +37,7 @@ public class ReserveResponseDto {
         private String patientName;
         private String doctorName;
         private ReserveStatus status;
-        private Integer price;
+        private String price;
     }
 
     @Getter
@@ -64,6 +64,6 @@ public class ReserveResponseDto {
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
         LocalDateTime treatmentTime;
         ReserveStatus status;
-        Integer price;
+        String price;
     }
 }

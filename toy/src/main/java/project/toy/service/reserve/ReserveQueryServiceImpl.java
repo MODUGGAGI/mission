@@ -34,13 +34,20 @@ public class ReserveQueryServiceImpl implements ReserveQueryService{
     private final HospitalRepository hospitalRepository;
 
     @Override
-    public ReserveResponseDto.ReserveListDTO getPatientReserves(Long patientId, Integer statusFilter, Integer page) {
+    public ReserveResponseDto.ReserveListDTO getPatientReserves(Long patientId, Integer statusFilter, Long doctorId, Integer page) {
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new PatientHandler(ErrorStatus.PATIENT_NOT_FOUND));
+
+        Doctor doctor = null;
+        if (doctorId != null) {
+            doctor = doctorRepository.findById(doctorId)
+                    .orElseThrow(() -> new DoctorHandler(ErrorStatus.DOCTOR_NOT_FOUND));
+        }
 
         Page<Reserve> reserves = reserveRepository.findAllByPatientWithStatus(
                 patient,
                 statusFilter,
+                doctor,
                 PageRequest.of(page, 10)
         );
 
@@ -49,7 +56,7 @@ public class ReserveQueryServiceImpl implements ReserveQueryService{
 
     @Override
     public ReserveResponseDto.ReserveListDTO getDoctorReserves(
-            Long hospitalId, Long departmentId, Long doctorId, Integer statusFilter, Integer page) {
+            Long hospitalId, Long departmentId, Long doctorId, Integer statusFilter, Long patientId, Integer page) {
 
         Hospital hospital = hospitalRepository.findById(hospitalId)
                 .orElseThrow(() -> new HospitalHandler(ErrorStatus.HOSPITAL_NOT_FOUND));
@@ -59,6 +66,12 @@ public class ReserveQueryServiceImpl implements ReserveQueryService{
 
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new DoctorHandler(ErrorStatus.DOCTOR_NOT_FOUND));
+
+        Patient patient = null;
+        if (patientId != null) {
+            patient = patientRepository.findById(patientId)
+                    .orElseThrow(() -> new PatientHandler(ErrorStatus.PATIENT_NOT_FOUND));
+        }
 
         // 진료과가 해당 병원에 소속되어 있는지 확인
         if (!doctor.getDepartment().getHospital().equals(hospital)) {
@@ -73,6 +86,7 @@ public class ReserveQueryServiceImpl implements ReserveQueryService{
         Page<Reserve> reserves = reserveRepository.findAllByDoctorWithStatus(
                 doctor,
                 statusFilter,
+                patient,
                 PageRequest.of(page, 10)
         );
 

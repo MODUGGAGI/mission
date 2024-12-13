@@ -8,7 +8,8 @@ import project.toy.web.dto.reserve.ReserveResponseDto;
 import java.time.LocalDate;
 
 public interface ReserveQueryService {
-    ReserveResponseDto.ReserveListDTO getPatientReserves(Long patientId, Integer statusFilter, Integer page);
+    ReserveResponseDto.ReserveListDTO getPatientReserves(Long patientId, Integer statusFilter,Long doctorId, Integer page);
+
     ReserveResponseDto.ReserveListDTO getDoctorReserves(Long hospitalId, Long departmentId, Long doctorId,
-                                                        Integer statusFilter, Integer page);
+                                                        Integer statusFilter, Long patientId, Integer page);
 }

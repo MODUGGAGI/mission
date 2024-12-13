@@ -7,6 +7,7 @@ import project.toy.domain.Patient;
 import project.toy.domain.Reserve;
 
 public interface ReserveRepositoryCustom {
-    Page<Reserve> findAllByPatientWithStatus(Patient patient, Integer statusFilter, PageRequest pageRequest);
-    Page<Reserve> findAllByDoctorWithStatus(Doctor doctor, Integer statusFilter, PageRequest pageRequest);
+    Page<Reserve> findAllByPatientWithStatus(Patient patient, Integer statusFilter, Doctor doctor, PageRequest pageRequest);
+
+    Page<Reserve> findAllByDoctorWithStatus(Doctor doctor, Integer statusFilter, Patient patient, PageRequest pageRequest);
 }

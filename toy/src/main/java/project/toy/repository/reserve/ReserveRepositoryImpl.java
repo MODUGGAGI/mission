@@ -27,24 +27,35 @@ public class ReserveRepositoryImpl implements ReserveRepositoryCustom{
     private final QReserve reserve = QReserve.reserve;
 
     @Override
-    public Page<Reserve> findAllByPatientWithStatus(Patient patient, Integer statusFilter, PageRequest pageRequest) {
-        BooleanExpression patientExp = reserve.patient.eq(patient);
-        return dynamicQuery(patientExp, statusFilter, pageRequest);
+    public Page<Reserve> findAllByPatientWithStatus(Patient patient, Integer statusFilter, Doctor doctor, PageRequest pageRequest) {
+
+        BooleanExpression patientExp = createPatientDynamicExp(patient);
+        BooleanExpression doctorDynamicExp = createDoctorDynamicExp(doctor);
+        return dynamicQuery(patientExp, doctorDynamicExp, statusFilter, pageRequest);
+    }
+
+    private BooleanExpression createDoctorDynamicExp(Doctor doctor) {
+        return doctor == null ? null : reserve.doctor.eq(doctor);
     }
 
     @Override
-    public Page<Reserve> findAllByDoctorWithStatus(Doctor doctor, Integer statusFilter, PageRequest pageRequest) {
-        BooleanExpression doctorExp = reserve.doctor.eq(doctor);
-        return dynamicQuery(doctorExp, statusFilter, pageRequest);
+    public Page<Reserve> findAllByDoctorWithStatus(Doctor doctor, Integer statusFilter, Patient patient, PageRequest pageRequest) {
+        BooleanExpression doctorExp = createDoctorDynamicExp(doctor);
+        BooleanExpression patientDynamicExp = createPatientDynamicExp(patient);
+        return dynamicQuery(doctorExp, patientDynamicExp, statusFilter, pageRequest);
     }
 
-    private Page<Reserve> dynamicQuery(BooleanExpression exp, Integer statusFilter, PageRequest pageRequest) {
+    private BooleanExpression createPatientDynamicExp(Patient patient) {
+        return patient == null ? null : reserve.patient.eq(patient);
+    }
+
+    private Page<Reserve> dynamicQuery(BooleanExpression exp, BooleanExpression nameDynamicExp, Integer statusFilter, PageRequest pageRequest) {
         BooleanExpression statusExp = determineStatus(statusFilter);
 
         Long listSize = jpaQueryFactory
                 .select(reserve.count())
                 .from(reserve)
-                .where(exp, statusExp)
+                .where(exp, nameDynamicExp, statusExp)
                 .fetchOne();
 
         listSize = (listSize == null ? 0L : listSize);
@@ -52,7 +63,7 @@ public class ReserveRepositoryImpl implements ReserveRepositoryCustom{
 
         List<Reserve> reserveList = jpaQueryFactory
                 .selectFrom(reserve)
-                .where(exp, statusExp)
+                .where(exp, nameDynamicExp, statusExp)
                 .orderBy(reserve.treatmentTime.desc())
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())

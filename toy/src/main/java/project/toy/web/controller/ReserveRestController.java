@@ -52,24 +52,27 @@ public class ReserveRestController {
         return ApiResponse.onSuccess(ReserveConverter.toTreatmentResultDTO(reserve));
     }
 
-
     @GetMapping("/patients/{patientId}/reserves")
     @Operation(summary = "환자의 예약 내역 조회 API",
             description = "환자의 예약 내역을 조회하는 API (1: 진행중, 2: 완료)")
     @Parameters({
             @Parameter(name = "patientId", description = "환자 ID"),
-            @Parameter(name = "statusFilter", description = "상태 필터 (1: 진행중, 2: 완료)"),
-            @Parameter(name = "page", description = "페이지 번호")
+            @Parameter(name = "statusFilter", description = "상태 필터 (1: 진행중, 2: 완료), Query String이며 필수값 아님"),
+            @Parameter(name = "doctorId", description = "특정 의사와의 진료 기록 검색, Query String이며 필수값 아님"),
+            @Parameter(name = "page", description = "페이지 번호, Query String")
     })
     public ApiResponse<ReserveResponseDto.ReserveListDTO> getPatientReserves(
             @PathVariable Long patientId,
             @RequestParam(required = false) Integer statusFilter,
+            @RequestParam(required = false) Long doctorId,
             @CheckPage Integer page
+
     ) {
         ReserveResponseDto.ReserveListDTO result =
-                reserveQueryService.getPatientReserves(patientId, statusFilter, page);
+                reserveQueryService.getPatientReserves(patientId, statusFilter, doctorId, page);
         return ApiResponse.onSuccess(result);
     }
+
 
     @GetMapping("/hospitals/{hospitalId}/departments/{departmentId}/doctors/{doctorId}/reserves")
     @Operation(summary = "의사의 예약 목록 조회 API",
@@ -78,17 +81,20 @@ public class ReserveRestController {
             @Parameter(name = "hospitalId", description = "병원 ID"),
             @Parameter(name = "departmentId", description = "진료과 ID"),
             @Parameter(name = "doctorId", description = "의사 ID"),
-            @Parameter(name = "statusFilter", description = "상태 필터 (1: 진행중, 2: 완료)"),
-            @Parameter(name = "page", description = "페이지 번호")
+            @Parameter(name = "statusFilter", description = "상태 필터 (1: 진행중, 2: 완료), Query String이며 필수값 아님"),
+            @Parameter(name = "patientId", description = "특정 환자와의 진료 기록 검색, Query String이며 필수값 아님"),
+            @Parameter(name = "page", description = "페이지 번호, Query String")
     })
     public ApiResponse<ReserveResponseDto.ReserveListDTO> getDoctorReserves(
             @PathVariable Long hospitalId,
             @PathVariable Long departmentId,
             @PathVariable Long doctorId,
             @RequestParam(required = false) Integer statusFilter,
+            @RequestParam(required = false) Long patientId,
             @CheckPage Integer page
     ) {
 
-        return ApiResponse.onSuccess(reserveQueryService.getDoctorReserves(hospitalId, departmentId, doctorId, statusFilter, page));
+        return ApiResponse.onSuccess(reserveQueryService.getDoctorReserves(hospitalId, departmentId, doctorId, statusFilter, patientId, page));
     }
+
 }

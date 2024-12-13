@@ -1,5 +1,6 @@
 package project.toy.converter;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import project.toy.apiPayload.code.status.ErrorStatus;
 import project.toy.apiPayload.exception.handler.ReserveHandler;
@@ -11,8 +12,11 @@ import project.toy.web.dto.reserve.ReserveRequestDto;
 import project.toy.web.dto.reserve.ReserveResponseDto;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ReserveConverter {
+
+    static PriceFormatter formatter = new PriceFormatter();
 
     public static Reserve toReserve(ReserveRequestDto.ReserveJoinDTO request, Patient patient, Doctor doctor) {
 
@@ -44,12 +48,15 @@ public class ReserveConverter {
     }
 
     public static ReserveResponseDto.TreatmentResultDTO toTreatmentResultDTO(Reserve reserve) {
+
+        String price = reserve.getPrice() == null ? "아직 진료 전, 진료비 X" : formatter.print(reserve.getPrice(), Locale.KOREA) + "원" ;
+
         return ReserveResponseDto.TreatmentResultDTO.builder()
                 .reserveId(reserve.getId())
                 .patientName(reserve.getPatient().getName())
                 .doctorName(reserve.getDoctor().getName())
                 .status(reserve.getStatus())
-                .price(reserve.getPrice())
+                .price(price)
                 .build();
     }
 
@@ -68,13 +75,16 @@ public class ReserveConverter {
     }
 
     private static ReserveResponseDto.ReserveDTO toReserveDTO(Reserve reserve) {
+
+        String price = reserve.getPrice() == null ? "아직 진료 전, 진료비 X" : formatter.print(reserve.getPrice(), Locale.KOREA) + "원" ;
+
         return ReserveResponseDto.ReserveDTO.builder()
                 .patientName(reserve.getPatient().getName())
                 .doctorName(reserve.getDoctor().getName())
                 .departmentName(reserve.getDoctor().getDepartment().getName())
                 .treatmentTime(reserve.getTreatmentTime())
                 .status(reserve.getStatus())
-                .price(reserve.getPrice())
+                .price(price)
                 .build();
     }
 }
