@@ -12,6 +12,5 @@ import project.toy.validation.annotation.AppropriateNumber;
 @AllArgsConstructor
 public class PhoneNum {
 
-    @Column
     String phoneNum;
 }

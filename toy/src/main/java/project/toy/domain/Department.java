@@ -10,10 +10,15 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Department {
+
+    @Builder
+    private Department(String name, Hospital hospital, PhoneNum phoneNum) {
+        this.name = name;
+        this.phoneNum = phoneNum;
+        setHospital(hospital);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +30,11 @@ public class Department {
     @JoinColumn(name = "hospital_id", nullable = false)
     private Hospital hospital;
 
-    public void setHospital(Hospital hospital) {
+    private void setHospital(Hospital hospital) {
         if (this.hospital != null) {
-            this.hospital.getDepartments().remove(this);
+            this.hospital = hospital;
+            this.hospital.getDepartments().add(this);
         }
-        this.hospital = hospital;
-        this.hospital.getDepartments().add(this);
     }
 
     private PhoneNum phoneNum;

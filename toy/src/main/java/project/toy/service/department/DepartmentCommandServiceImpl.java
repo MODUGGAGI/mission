@@ -23,12 +23,11 @@ public class DepartmentCommandServiceImpl implements DepartmentCommandService{
     @Override
     @Transactional
     public Department joinDepartment(DepartmentRequestDto.DepartmentJoinDTO request, Long hospitalId) {
-        Department department = DepartmentConverter.toDepartment(request);
 
         Hospital hospital = hospitalRepository.findById(hospitalId)
                 .orElseThrow(() -> new HospitalHandler(ErrorStatus.HOSPITAL_NOT_FOUND));
 
-        department.setHospital(hospital);
+        Department department = DepartmentConverter.toDepartment(request, hospital);
 
         return departmentRepository.save(department);
     }

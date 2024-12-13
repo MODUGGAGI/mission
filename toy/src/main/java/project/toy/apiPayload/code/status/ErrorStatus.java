@@ -19,8 +19,6 @@ public enum ErrorStatus implements BaseErrorCode {
     PATIENT_NOT_FOUND(HttpStatus.NOT_FOUND, "PATIENT4001", "환자가 없습니다."),
     // 의사 관련 에러
     DOCTOR_NOT_FOUND(HttpStatus.NOT_FOUND, "DOCTOR4001", "의사가 존재하지 않습니다."),
-    // For test
-    TEMP_EXCEPTION(HttpStatus.BAD_REQUEST, "TEMP4001", "이거는 테스트"),
     //Page의 범위가 맞지 않음
     PAGE_OUT_OF_RANGE(HttpStatus.BAD_REQUEST, "PAGE4001","페이지 범위에 맞지 않는 페이지 값이 들어왔습니다."),
     //전화번호 형식 오류

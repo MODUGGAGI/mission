@@ -14,10 +14,13 @@ public class PatientConverter {
 
     public static Patient toPatient(PatientRequestDto.PatientJoinDTO request) {
 
+        final int MALE = 1;
+        final int FEMALE = 2;
+
         Gender gender = null;
         switch (request.getGender()) {
-            case 1 -> gender = Gender.male;
-            case 2 -> gender = Gender.female;
+            case MALE -> gender = Gender.male;
+            case FEMALE -> gender = Gender.female;
             default -> throw new GenderHandler(ErrorStatus.GENDER_INAPPROPRIATE);
         }
 
