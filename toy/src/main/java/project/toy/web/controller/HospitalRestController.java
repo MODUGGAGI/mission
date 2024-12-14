@@ -136,5 +136,4 @@ public class HospitalRestController {
         Page<Doctor> doctors = doctorQueryService.getDoctors(hospitalId, departmentId, page);
         return ApiResponse.onSuccess(DoctorConverter.toDoctorListDTO(doctors));
     }
-
 }

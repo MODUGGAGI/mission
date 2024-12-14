@@ -1,6 +1,7 @@
 package project.toy.converter;
 
 import org.springframework.data.domain.Page;
+import project.toy.domain.Department;
 import project.toy.domain.Doctor;
 import project.toy.domain.embeddable.PhoneNum;
 import project.toy.web.dto.doctor.DoctorRequestDto;
@@ -11,8 +12,9 @@ import java.util.List;
 
 public class DoctorConverter {
 
-    public static Doctor toDoctor(DoctorRequestDto.DoctorJoinDTO request) {
+    public static Doctor toDoctor(DoctorRequestDto.DoctorJoinDTO request, Department department) {
         return Doctor.builder()
+                .department(department)
                 .name(request.getName())
                 .phoneNum(PhoneNum.builder().phoneNum(request.getPhoneNum()).build())
                 .career(request.getCareer())

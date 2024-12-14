@@ -15,13 +15,19 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
 @DynamicInsert
 public class Doctor {
+    @Builder
+    public Doctor(String name, Department department, PhoneNum phoneNum, LocalDate startDate, int career) {
+        setDepartment(department);
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.startDate = startDate;
+        this.career = career;
+    }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,20 +44,19 @@ public class Doctor {
 
     private PhoneNum phoneNum;
 
-    public void setDepartment(Department department) {
-        if (this.department != null) {
-            this.department.getDoctors().remove(this);
-        }
-        this.department = department;
-        this.department.getDoctors().add(this);
-    }
-
     @CreatedDate
     @Column(columnDefinition = "date")
     private LocalDate startDate;
 
     @Column(columnDefinition = "int default 0")
     private int career;
+
+    private void setDepartment(Department department) {
+        if (department != null) {
+            this.department = department;
+            this.department.getDoctors().add(this);
+        }
+    }
 
     public int updateCareerYear() {
         int calculatedCareer = LocalDate.now().getYear() - this.startDate.getYear() + this.career;

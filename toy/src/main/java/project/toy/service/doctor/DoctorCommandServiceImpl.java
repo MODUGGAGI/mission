@@ -27,14 +27,14 @@ public class DoctorCommandServiceImpl implements DoctorCommandService{
     @Override
     @Transactional
     public Doctor joinDoctor(DoctorRequestDto.DoctorJoinDTO request, Long hospitalId, Long departmentId) {
-        Doctor doctor = DoctorConverter.toDoctor(request);
         Hospital hospital = hospitalRepository.findById(hospitalId)
                 .orElseThrow(() -> new HospitalHandler(ErrorStatus.HOSPITAL_NOT_FOUND));
         Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(() -> new DepartmentHandler(ErrorStatus.DEPARTMENT_NOT_FOUND));
 
+        Doctor doctor = DoctorConverter.toDoctor(request, department);
+
         if (hospital.getDepartments().contains(department)) {
-            doctor.setDepartment(department);
             return doctorRepository.save(doctor);
         }
 

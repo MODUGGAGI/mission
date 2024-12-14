@@ -31,7 +31,7 @@ public class Department {
     private Hospital hospital;
 
     private void setHospital(Hospital hospital) {
-        if (this.hospital != null) {
+        if (hospital != null) {
             this.hospital = hospital;
             this.hospital.getDepartments().add(this);
         }

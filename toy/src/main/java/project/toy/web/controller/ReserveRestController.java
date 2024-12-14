@@ -96,5 +96,4 @@ public class ReserveRestController {
 
         return ApiResponse.onSuccess(reserveQueryService.getDoctorReserves(hospitalId, departmentId, doctorId, statusFilter, patientId, page));
     }
-
 }
