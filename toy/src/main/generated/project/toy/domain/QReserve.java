@@ -22,8 +22,6 @@ public class QReserve extends EntityPathBase<Reserve> {
 
     public static final QReserve reserve = new QReserve("reserve");
 
-    public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
-
     public final QDoctor doctor;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -33,6 +31,8 @@ public class QReserve extends EntityPathBase<Reserve> {
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
     public final EnumPath<project.toy.domain.enums.ReserveStatus> status = createEnum("status", project.toy.domain.enums.ReserveStatus.class);
+
+    public final DateTimePath<java.time.LocalDateTime> treatmentTime = createDateTime("treatmentTime", java.time.LocalDateTime.class);
 
     public QReserve(String variable) {
         this(Reserve.class, forVariable(variable), INITS);
@@ -53,7 +53,7 @@ public class QReserve extends EntityPathBase<Reserve> {
     public QReserve(Class<? extends Reserve> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.doctor = inits.isInitialized("doctor") ? new QDoctor(forProperty("doctor"), inits.get("doctor")) : null;
-        this.patient = inits.isInitialized("patient") ? new QPatient(forProperty("patient")) : null;
+        this.patient = inits.isInitialized("patient") ? new QPatient(forProperty("patient"), inits.get("patient")) : null;
     }
 
 }

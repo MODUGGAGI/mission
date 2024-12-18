@@ -17,11 +17,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(0, checkPageArgumentResolver);
-    }
-
-    @Override
-    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-        WebMvcConfigurer.super.extendHandlerExceptionResolvers(resolvers);
+        resolvers.add(checkPageArgumentResolver);
     }
 }

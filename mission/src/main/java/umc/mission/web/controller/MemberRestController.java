@@ -36,7 +36,6 @@ public class MemberRestController {
 
     private final MemberCommandService memberCommandService;
     private final MemberQueryService memberQueryService;
-    private final MemberMissionCommandService memberMissionCommandService;
 
     @PostMapping("/")
     public ApiResponse<MemberResponseDto.MemberJoinResultDto> join(@RequestBody @Valid MemberRequestDto.MemberJoinDto request) {
@@ -57,7 +56,6 @@ public class MemberRestController {
             @Parameter(name = "page", description = "조회할 page 번호 입니다.")
     })
     public ApiResponse<MemberResponseDto.MyReviewListDTO> getReviewList(@PathVariable Long memberId, @CheckPage Integer page) {
-        log.info("page={}", page);
         Page<Review> reviewList = memberQueryService.getMyReviews(memberId, page);
         return ApiResponse.onSuccess(MemberConverter.toMyReviewListDTO(reviewList));
     }
@@ -75,7 +73,6 @@ public class MemberRestController {
             @Parameter(name = "page", description = "조회할 page 번호 입니다.")
     })
     public ApiResponse<MemberMissionResponseDto.MemberMissionPreviewListDTO> getChallengingMissionList(@PathVariable Long memberId, @CheckPage Integer page) {
-        log.info("page={}", page);
         Page<MemberMission> memberMissionList = memberQueryService.getMyChallengingMissions(memberId, page);
         return ApiResponse.onSuccess(MemberMissionConverter.toMemberMissionPreviewListDTO(memberMissionList));
     }

@@ -1,7 +1,6 @@
 package umc.mission.web.dto.review;
 
 import lombok.Getter;
-import umc.mission.validation.annotation.ExistStore;
 
 public class ReviewRequestDto {
 
