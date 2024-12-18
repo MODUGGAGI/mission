@@ -34,10 +34,6 @@ public class ReserveRepositoryImpl implements ReserveRepositoryCustom{
         return dynamicQuery(patientExp, doctorDynamicExp, statusFilter, pageRequest);
     }
 
-    private BooleanExpression createDoctorDynamicExp(Doctor doctor) {
-        return doctor == null ? null : reserve.doctor.eq(doctor);
-    }
-
     @Override
     public Page<Reserve> findAllByDoctorWithStatus(Doctor doctor, Integer statusFilter, Patient patient, PageRequest pageRequest) {
         BooleanExpression doctorExp = createDoctorDynamicExp(doctor);
@@ -49,16 +45,20 @@ public class ReserveRepositoryImpl implements ReserveRepositoryCustom{
         return patient == null ? null : reserve.patient.eq(patient);
     }
 
+    private BooleanExpression createDoctorDynamicExp(Doctor doctor) {
+        return doctor == null ? null : reserve.doctor.eq(doctor);
+    }
+
     private Page<Reserve> dynamicQuery(BooleanExpression exp, BooleanExpression nameDynamicExp, Integer statusFilter, PageRequest pageRequest) {
         BooleanExpression statusExp = determineStatus(statusFilter);
 
-        Long listSize = jpaQueryFactory
+        Long totalListSize = jpaQueryFactory
                 .select(reserve.count())
                 .from(reserve)
                 .where(exp, nameDynamicExp, statusExp)
                 .fetchOne();
 
-        listSize = (listSize == null ? 0L : listSize);
+        totalListSize = (totalListSize == null ? 0L : totalListSize);
         //조건에 맞는 데이터가 하나도 없을 경우 null이 발생해서 NullPointerException 발생. 따라서 null 인경우 0L로 바꿔주기
 
         List<Reserve> reserveList = jpaQueryFactory
@@ -68,7 +68,7 @@ public class ReserveRepositoryImpl implements ReserveRepositoryCustom{
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())
                 .fetch();
-        return new PageImpl<>(reserveList, pageRequest, listSize);
+        return new PageImpl<>(reserveList, pageRequest, totalListSize);
     }
 
     private BooleanExpression determineStatus(Integer statusFilter) {

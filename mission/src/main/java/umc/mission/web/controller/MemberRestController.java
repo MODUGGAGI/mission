@@ -56,7 +56,6 @@ public class MemberRestController {
             @Parameter(name = "page", description = "조회할 page 번호 입니다.")
     })
     public ApiResponse<MemberResponseDto.MyReviewListDTO> getReviewList(@PathVariable Long memberId, @CheckPage Integer page) {
-        log.info("page={}", page);
         Page<Review> reviewList = memberQueryService.getMyReviews(memberId, page);
         return ApiResponse.onSuccess(MemberConverter.toMyReviewListDTO(reviewList));
     }
@@ -74,7 +73,6 @@ public class MemberRestController {
             @Parameter(name = "page", description = "조회할 page 번호 입니다.")
     })
     public ApiResponse<MemberMissionResponseDto.MemberMissionPreviewListDTO> getChallengingMissionList(@PathVariable Long memberId, @CheckPage Integer page) {
-        log.info("page={}", page);
         Page<MemberMission> memberMissionList = memberQueryService.getMyChallengingMissions(memberId, page);
         return ApiResponse.onSuccess(MemberMissionConverter.toMemberMissionPreviewListDTO(memberMissionList));
     }

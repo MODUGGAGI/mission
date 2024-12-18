@@ -52,6 +52,7 @@ public class DoctorConverter {
         return DoctorResponseDto.DoctorDTO.builder()
                 .doctorName(doctor.getName())
                 .departmentName(doctor.getDepartment().getName())  // 진료과 이름 추가
+                .hospitalName(doctor.getDepartment().getHospital().getName())
                 .phoneNum(doctor.getPhoneNum().getPhoneNum())
                 .career(doctor.getCareer())
                 .build();

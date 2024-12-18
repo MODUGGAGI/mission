@@ -19,6 +19,7 @@ public enum ErrorStatus implements BaseErrorCode {
     PATIENT_NOT_FOUND(HttpStatus.NOT_FOUND, "PATIENT4001", "환자가 없습니다."),
     // 의사 관련 에러
     DOCTOR_NOT_FOUND(HttpStatus.NOT_FOUND, "DOCTOR4001", "의사가 존재하지 않습니다."),
+    DOCTOR_NOT_EXISTS(HttpStatus.NOT_FOUND, "DOCTOR4002","해당 진료과에는 해당 의사가 존재하지 않습니다."),
     //Page의 범위가 맞지 않음
     PAGE_OUT_OF_RANGE(HttpStatus.BAD_REQUEST, "PAGE4001","페이지 범위에 맞지 않는 페이지 값이 들어왔습니다."),
     //전화번호 형식 오류
@@ -36,7 +37,7 @@ public enum ErrorStatus implements BaseErrorCode {
     RESERVE_NOT_FOUND(HttpStatus.NOT_FOUND, "RESERVE4001", "예약을 찾을 수 없습니다."),
     RESERVE_STATUS_NOTFOUND(HttpStatus.NOT_FOUND,"RESERVE4002","예약 상태는 1(WALK_IN),2(RESERVE) 중 선택해야 합니다."),
     RESERVE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST,"RESERVE4003","해당 시간에 이미 예약이 존재합니다."),
-    RESERVE_STATUS_CHANGE_DENIED(HttpStatus.BAD_REQUEST,"RESERVE4004","예약 상태에서만 의사 변경이 가능합니다."),
+    RESERVE_STATUS_CHANGE_DENIED(HttpStatus.BAD_REQUEST,"RESERVE4004","진료 전에만 의사 변경이 가능합니다."),
     RESERVE_ALREADY_TREATMENT(HttpStatus.BAD_REQUEST,"RESERVE4005","이미 진료가 끝난 상태입니다.");
 
     private final HttpStatus httpStatus;

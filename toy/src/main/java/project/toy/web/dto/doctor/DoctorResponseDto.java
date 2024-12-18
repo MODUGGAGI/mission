@@ -40,8 +40,9 @@ public class DoctorResponseDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DoctorDTO {
-        String doctorName;
+        String hospitalName;
         String departmentName;
+        String doctorName;
         String phoneNum;
         int career;
     }

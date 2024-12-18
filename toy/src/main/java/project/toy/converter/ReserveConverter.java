@@ -18,12 +18,15 @@ public class ReserveConverter {
 
     static PriceFormatter formatter = new PriceFormatter();
 
+    static final int WALK_IN = 1;
+    static final int RESERVE = 2;
+
     public static Reserve toReserve(ReserveRequestDto.ReserveJoinDTO request, Patient patient, Doctor doctor) {
 
         ReserveStatus status = null;
         switch (request.getStatus()) {
-            case 1 -> status = ReserveStatus.WALK_IN;
-            case 2 -> status = ReserveStatus.RESERVE;
+            case WALK_IN -> status = ReserveStatus.WALK_IN;
+            case RESERVE -> status = ReserveStatus.RESERVE;
             default -> throw new ReserveHandler(ErrorStatus.RESERVE_STATUS_NOTFOUND);
         }
 

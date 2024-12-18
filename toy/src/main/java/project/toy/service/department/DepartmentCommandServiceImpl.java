@@ -11,6 +11,7 @@ import project.toy.domain.Hospital;
 import project.toy.repository.DepartmentRepository;
 import project.toy.repository.HospitalRepository;
 import project.toy.web.dto.department.DepartmentRequestDto;
+import project.toy.web.dto.department.DepartmentResponseDto;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +23,13 @@ public class DepartmentCommandServiceImpl implements DepartmentCommandService{
 
     @Override
     @Transactional
-    public Department joinDepartment(DepartmentRequestDto.DepartmentJoinDTO request, Long hospitalId) {
+    public DepartmentResponseDto.DepartmentJoinResultDTO joinDepartment(DepartmentRequestDto.DepartmentJoinDTO request, Long hospitalId) {
 
         Hospital hospital = hospitalRepository.findById(hospitalId)
                 .orElseThrow(() -> new HospitalHandler(ErrorStatus.HOSPITAL_NOT_FOUND));
 
         Department department = DepartmentConverter.toDepartment(request, hospital);
 
-        return departmentRepository.save(department);
+        return DepartmentConverter.toDepartmentJoinResultDTO(departmentRepository.save(department));
     }
 }

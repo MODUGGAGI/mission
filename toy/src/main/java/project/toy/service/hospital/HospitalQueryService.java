@@ -1,8 +1,8 @@
 package project.toy.service.hospital;
 
-import org.springframework.data.domain.Page;
-import project.toy.domain.Hospital;
+import project.toy.web.dto.hospital.HospitalResponseDto;
 
 public interface HospitalQueryService {
-    Page<Hospital> getHospital(Integer page);
+    HospitalResponseDto.HospitalDTO getHospital(Long id);
+    HospitalResponseDto.HospitalListDTO getHospitals(Integer page);
 }

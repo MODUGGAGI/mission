@@ -2,9 +2,10 @@ package project.toy.service.reserve;
 
 import project.toy.domain.Reserve;
 import project.toy.web.dto.reserve.ReserveRequestDto;
+import project.toy.web.dto.reserve.ReserveResponseDto;
 
 public interface ReserveCommandService {
-    Reserve joinReserve(ReserveRequestDto.ReserveJoinDTO request);
+    ReserveResponseDto.ReserveJoinResultDTO joinReserve(ReserveRequestDto.ReserveJoinDTO request);
 
-    Reserve completeTreatment(Long reserveId, Integer price);
+    ReserveResponseDto.TreatmentResultDTO completeTreatment(Long reserveId, Integer price);
 }

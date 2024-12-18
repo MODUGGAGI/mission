@@ -16,6 +16,7 @@ import project.toy.repository.DoctorRepository;
 import project.toy.repository.PatientRepository;
 import project.toy.repository.reserve.ReserveRepository;
 import project.toy.web.dto.reserve.ReserveRequestDto;
+import project.toy.web.dto.reserve.ReserveResponseDto;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class ReserveCommandServiceImpl implements ReserveCommandService{
     private final ReserveRepository reserveRepository;
     @Override
     @Transactional
-    public Reserve joinReserve(ReserveRequestDto.ReserveJoinDTO request) {
+    public ReserveResponseDto.ReserveJoinResultDTO joinReserve(ReserveRequestDto.ReserveJoinDTO request) {
 
         if (reserveRepository.existsByDoctorIdAndTreatmentTime(request.getDoctorId(), request.getTreatmentTime())) {
             throw new ReserveHandler(ErrorStatus.RESERVE_ALREADY_EXISTS);
@@ -42,12 +43,14 @@ public class ReserveCommandServiceImpl implements ReserveCommandService{
         Reserve reserve = ReserveConverter.toReserve(request, patient, doctor);
         //이 컨버터 내부 메소드에서 빌더 패턴으로 생성자 호출할 때 생성자 내부에서 patient와 doctor에 대해 양방향 연관관계 설정완료
 
-        return reserveRepository.save(reserve);
+        Reserve savedReserve = reserveRepository.save(reserve);
+
+        return ReserveConverter.toReserveJoinResultDTO(savedReserve);
     }
 
     @Override
     @Transactional
-    public Reserve completeTreatment(Long reserveId, Integer price) {
+    public ReserveResponseDto.TreatmentResultDTO completeTreatment(Long reserveId, Integer price) {
         Reserve reserve = reserveRepository.findById(reserveId)
                 .orElseThrow(() -> new ReserveHandler(ErrorStatus.RESERVE_NOT_FOUND));
 
@@ -55,6 +58,8 @@ public class ReserveCommandServiceImpl implements ReserveCommandService{
             throw new ReserveHandler(ErrorStatus.RESERVE_ALREADY_TREATMENT);
         }
 
-        return reserve.changeStatusToTREATMENT(price);
+        Reserve changedReserve = reserve.changeStatusToTREATMENT(price);
+
+        return ReserveConverter.toTreatmentResultDTO(changedReserve);
     }
 }

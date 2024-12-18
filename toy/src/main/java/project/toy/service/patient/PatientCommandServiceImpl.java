@@ -7,6 +7,7 @@ import project.toy.converter.PatientConverter;
 import project.toy.domain.Patient;
 import project.toy.repository.PatientRepository;
 import project.toy.web.dto.patient.PatientRequestDto;
+import project.toy.web.dto.patient.PatientResponseDto;
 
 @Service
 @RequiredArgsConstructor
@@ -17,9 +18,11 @@ public class PatientCommandServiceImpl implements PatientCommandService{
 
     @Override
     @Transactional
-    public Patient joinPatient(PatientRequestDto.PatientJoinDTO request) {
+    public PatientResponseDto.PatientJoinResultDTO joinPatient(PatientRequestDto.PatientJoinDTO request) {
         Patient patient = PatientConverter.toPatient(request);
 
-        return patientRepository.save(patient);
+        Patient savedPatient = patientRepository.save(patient);
+
+        return PatientConverter.toPatientJoinResultDto(savedPatient);
     }
 }

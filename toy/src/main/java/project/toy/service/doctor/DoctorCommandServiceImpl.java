@@ -14,6 +14,7 @@ import project.toy.repository.DepartmentRepository;
 import project.toy.repository.DoctorRepository;
 import project.toy.repository.HospitalRepository;
 import project.toy.web.dto.doctor.DoctorRequestDto;
+import project.toy.web.dto.doctor.DoctorResponseDto;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class DoctorCommandServiceImpl implements DoctorCommandService{
 
     @Override
     @Transactional
-    public Doctor joinDoctor(DoctorRequestDto.DoctorJoinDTO request, Long hospitalId, Long departmentId) {
+    public DoctorResponseDto.DoctorJoinResultDTO joinDoctor(DoctorRequestDto.DoctorJoinDTO request, Long hospitalId, Long departmentId) {
         Hospital hospital = hospitalRepository.findById(hospitalId)
                 .orElseThrow(() -> new HospitalHandler(ErrorStatus.HOSPITAL_NOT_FOUND));
         Department department = departmentRepository.findById(departmentId)
@@ -34,10 +35,10 @@ public class DoctorCommandServiceImpl implements DoctorCommandService{
 
         Doctor doctor = DoctorConverter.toDoctor(request, department);
 
-        if (hospital.getDepartments().contains(department)) {
-            return doctorRepository.save(doctor);
+        if (!hospital.getDepartments().contains(department)) {
+            throw new DepartmentHandler(ErrorStatus.DEPARTMENT_NOT_EXISTS);
         }
 
-        throw new DepartmentHandler(ErrorStatus.DEPARTMENT_NOT_EXISTS);
+        return DoctorConverter.toDoctorJoinResultDTO(doctorRepository.save(doctor));
     }
 }

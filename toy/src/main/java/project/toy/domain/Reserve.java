@@ -36,7 +36,6 @@ public class Reserve {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-
     @Column(columnDefinition = "datetime")
     private LocalDateTime treatmentTime;
 
@@ -68,7 +67,7 @@ public class Reserve {
     }
 
     public void changeDoctor(Doctor doctor) {
-        if (this.status != ReserveStatus.RESERVE) {
+        if (this.status == ReserveStatus.TREATMENT) {
             throw new ReserveHandler(ErrorStatus.RESERVE_STATUS_CHANGE_DENIED);
         }
         if (this.doctor != null) {

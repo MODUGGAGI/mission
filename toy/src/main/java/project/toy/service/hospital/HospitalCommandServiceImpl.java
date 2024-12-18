@@ -7,6 +7,7 @@ import project.toy.converter.HospitalConverter;
 import project.toy.domain.Hospital;
 import project.toy.repository.HospitalRepository;
 import project.toy.web.dto.hospital.HospitalRequestDto;
+import project.toy.web.dto.hospital.HospitalResponseDto;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,9 +18,9 @@ public class HospitalCommandServiceImpl implements HospitalCommandService {
 
     @Override
     @Transactional
-    public Hospital joinHospital(HospitalRequestDto.HospitalJoinDTO request) {
+    public HospitalResponseDto.HospitalJoinResultDTO joinHospital(HospitalRequestDto.HospitalJoinDTO request) {
         Hospital hospital = HospitalConverter.toHospital(request);
 
-        return hospitalRepository.save(hospital);
+        return HospitalConverter.toHospitalJoinResultDto(hospitalRepository.save(hospital));
     }
 }

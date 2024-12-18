@@ -42,10 +42,10 @@ public class StoreQueryServiceImpl implements StoreQueryService {
 
     @Override
     public Page<Review> getReviewList(Long storeId, Integer page) {
-        Store store = storeRepository.findById(storeId).get();
+        Store store = storeRepository.findById(storeId).
+                orElseThrow(() -> new StoreHandler(ErrorStatus.STORE_NOT_FOUND));
 
-        Page<Review> storePage = reviewRepository.findAllByStore(store, PageRequest.of(page, 10));
-        return storePage;
+        return reviewRepository.findAllByStore(store, PageRequest.of(page, 10));
     }
 
     @Override
@@ -53,7 +53,6 @@ public class StoreQueryServiceImpl implements StoreQueryService {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new StoreHandler(ErrorStatus.STORE_NOT_FOUND));
 
-        Page<Mission> missionPage = missionRepository.findAllByStore(store, PageRequest.of(page, 10));
-        return missionPage;
+        return missionRepository.findAllByStore(store, PageRequest.of(page, 10));
     }
 }

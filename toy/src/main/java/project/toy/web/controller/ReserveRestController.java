@@ -30,9 +30,8 @@ public class ReserveRestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공")
     })
     public ApiResponse<ReserveResponseDto.ReserveJoinResultDTO> joinReserve(@RequestBody @Valid ReserveRequestDto.ReserveJoinDTO request) {
-        Reserve reserve = reserveCommandService.joinReserve(request);
 
-        return ApiResponse.onSuccess(ReserveConverter.toReserveJoinResultDTO(reserve));
+        return ApiResponse.onSuccess(reserveCommandService.joinReserve(request));
     }
 
     @PatchMapping("/{reserveId}/treatment")
@@ -48,8 +47,8 @@ public class ReserveRestController {
             @PathVariable Long reserveId,
             @RequestBody @Valid ReserveRequestDto.TreatmentDTO request
     ) {
-        Reserve reserve = reserveCommandService.completeTreatment(reserveId, request.getPrice());
-        return ApiResponse.onSuccess(ReserveConverter.toTreatmentResultDTO(reserve));
+
+        return ApiResponse.onSuccess(reserveCommandService.completeTreatment(reserveId, request.getPrice()));
     }
 
     @GetMapping("/patients/{patientId}/reserves")
@@ -66,10 +65,10 @@ public class ReserveRestController {
             @RequestParam(required = false) Integer statusFilter,
             @RequestParam(required = false) Long doctorId,
             @CheckPage Integer page
-
     ) {
         ReserveResponseDto.ReserveListDTO result =
                 reserveQueryService.getPatientReserves(patientId, statusFilter, doctorId, page);
+
         return ApiResponse.onSuccess(result);
     }
 
@@ -94,6 +93,9 @@ public class ReserveRestController {
             @CheckPage Integer page
     ) {
 
-        return ApiResponse.onSuccess(reserveQueryService.getDoctorReserves(hospitalId, departmentId, doctorId, statusFilter, patientId, page));
+        ReserveResponseDto.ReserveListDTO result
+                = reserveQueryService.getDoctorReserves(hospitalId, departmentId, doctorId, statusFilter, patientId, page);
+
+        return ApiResponse.onSuccess(result);
     }
 }
