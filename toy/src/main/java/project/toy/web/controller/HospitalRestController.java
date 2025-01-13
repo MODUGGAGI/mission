@@ -169,7 +169,6 @@ public class HospitalRestController {
             @PathVariable Long departmentId,
             @PathVariable Long doctorId
     ) {
-
         return ApiResponse.onSuccess(doctorQueryService.getDoctor(hospitalId, departmentId, doctorId));
     }
 

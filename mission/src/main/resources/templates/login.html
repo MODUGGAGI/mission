@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .login-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4285f4;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .google-login {
+            background-color: white;
+            border: 1px solid #ddd;
+            color: #757575;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .error-message {
+            color: #d93025;
+            margin: 10px 0;
+        }
+        .success-message {
+            color: #188038;
+            margin: 10px 0;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h2>로그인</h2>
+
+<div class="login-container">
+    <!-- 일반 로그인 폼 -->
+    <form th:action="@{/auth/login}" method="post">
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <!-- 에러 메시지 -->
+        <p th:if="${param.error}" class="error-message">
+            이메일 또는 비밀번호가 잘못되었습니다.
+        </p>
+
+        <!-- 로그아웃 메시지 -->
+        <p th:if="${param.logout}" class="success-message">
+            로그아웃되었습니다.
+        </p>
+
+        <button type="submit">로그인</button>
+    </form>
+
+    <!-- 구글 로그인 -->
+    <a th:href="@{/oauth2/authorization/google}" class="google-login">
+        Google 계정으로 로그인
+    </a>
+
+    <!-- 회원가입 링크 -->
+    <div class="signup-link">
+        <p>계정이 없으신가요? <a th:href="@{/signup}">회원가입</a></p>
+    </div>
+</div>
+</body>
+</html>

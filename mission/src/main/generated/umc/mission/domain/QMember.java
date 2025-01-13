@@ -35,6 +35,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final DatePath<java.time.LocalDate> inactiveDate = createDate("inactiveDate", java.time.LocalDate.class);
 
+    public final StringPath loginId = createString("loginId");
+
     public final ListPath<umc.mission.domain.mapping.MemberAgree, umc.mission.domain.mapping.QMemberAgree> memberAgreeList = this.<umc.mission.domain.mapping.MemberAgree, umc.mission.domain.mapping.QMemberAgree>createList("memberAgreeList", umc.mission.domain.mapping.MemberAgree.class, umc.mission.domain.mapping.QMemberAgree.class, PathInits.DIRECT2);
 
     public final ListPath<umc.mission.domain.mapping.MemberMission, umc.mission.domain.mapping.QMemberMission> memberMissionList = this.<umc.mission.domain.mapping.MemberMission, umc.mission.domain.mapping.QMemberMission>createList("memberMissionList", umc.mission.domain.mapping.MemberMission.class, umc.mission.domain.mapping.QMemberMission.class, PathInits.DIRECT2);
@@ -43,9 +45,15 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath name = createString("name");
 
+    public final StringPath password = createString("password");
+
     public final NumberPath<Integer> point = createNumber("point", Integer.class);
 
+    public final StringPath providerId = createString("providerId");
+
     public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
+
+    public final EnumPath<umc.mission.domain.enums.Role> role = createEnum("role", umc.mission.domain.enums.Role.class);
 
     public final EnumPath<umc.mission.domain.enums.SocialType> socialType = createEnum("socialType", umc.mission.domain.enums.SocialType.class);
 

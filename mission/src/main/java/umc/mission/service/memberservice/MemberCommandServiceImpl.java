@@ -1,6 +1,8 @@
 package umc.mission.service.memberservice;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.mission.apiPayload.code.status.ErrorStatus;
@@ -26,6 +28,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @Transactional(readOnly = true)
 public class MemberCommandServiceImpl implements MemberCommandService {
 
@@ -37,11 +40,21 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
     private final MemberMissionRepository memberMissionRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional
     public Member joinMember(MemberRequestDto.MemberJoinDto request) {
 
+        // 이메일 중복 검사
+        if (memberRepository.existsByEmail(request.getEmail())) {
+            log.error("이메일 중복 발생: {}", request.getEmail());
+            throw new IllegalStateException("이미 사용 중인 이메일입니다.");
+        }
+
         Member newMember = MemberConverter.toMember(request);
+        newMember.encodePassword(passwordEncoder.encode(request.getPassword()));
+
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(category -> foodCategoryRepository.findById(category)
                         .orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND))
