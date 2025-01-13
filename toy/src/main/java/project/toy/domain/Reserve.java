@@ -2,6 +2,7 @@ package project.toy.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,6 +11,8 @@ import project.toy.apiPayload.exception.handler.ReserveHandler;
 import project.toy.domain.enums.ReserveStatus;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -76,4 +79,6 @@ public class Reserve {
         this.doctor = doctor;
         this.doctor.getReserveList().add(this);
     }
+
+
 }

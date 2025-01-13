@@ -32,10 +32,13 @@ public class MemberConverter { //객체를 DTO로 바꾸는 역할
         }
 
         return Member.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .gender(gender)
                 .address(request.getAddress())
                 .specAddress(request.getSpecAddress())
-                .gender(gender)
-                .name(request.getName())
+                .role(request.getRole())
                 .memberPreferList(new ArrayList<>())
                 .build();
     }

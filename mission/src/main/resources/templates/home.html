@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<h2>Welcome to Home Page!</h2>
+<div sec:authorize="isAuthenticated()">
+    <p th:text="'반가워, ' + ${#authentication.principal.member.name} + '!'"></p>
+    <!-- 또는 이메일을 표시하고 싶다면 -->
+    <p th:text="'이메일: ' + ${#authentication.principal.member.email}"></p>
+</div>
+<div sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/admin}">관리자 페이지로 이동</a>
+</div>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+</body>
+</html>
