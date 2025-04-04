@@ -10,7 +10,7 @@ import project.toy.domain.Hospital;
 
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
-    Page<Department> findAllByHospital(Hospital hospital, PageRequest pageRequest);
+    Page<Department> findAllByHospital(Hospital hospital, Pageable Pageable);
 
     Page<Department> findAllByNameContaining(String name, Pageable pageable);
 }
